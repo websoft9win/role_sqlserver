@@ -1,16 +1,36 @@
-    
-- name: Install SQLServer2017
-  include: sqlserver2017.yml
-  when: sqlserver_ver == 2017
+# pre-installation
+- set_fact:
+    sqlserver_download: "{{sqlserver_meta[sqlserver_version][sqlserver_language].download}}"
 
-- name: Install SQLServer2016
-  include: sqlserver2016.yml
-  when: sqlserver_ver == 2016
+# Download
+- name: Create temporary directory
+  win_file:
+    path: C:\temp
+    state: directory
 
-- name: Install SQLServer2014
-  include: sqlserver2014.yml
-  when: sqlserver_ver == 2014
+- name: Download SQLServer
+  win_get_url:
+    url: "{{sqlserver_download}}"
+    dest: C:\temp\
 
-- name: Install SQLServer2012
-  include: sqlserver2012.yml
-  when: sqlserver_ver == 2012
+
+# different version for installation
+- name: Install SQLServer{{sqlserver_version}}
+  include: sqlserver{{sqlserver_version}}.yml
+
+
+## create password description
+- name: Create Credentials Directory
+  win_file:
+    path: C:\Credentials\
+    state: directory
+
+- name: Copy password.txt to Credentials
+  win_template:
+    src: password.txt.j2
+    dest: C:\Credentials\password.txt
+
+- name: Create password.lnk on desktop
+  win_shortcut:
+    src: C:\Credentials\password.txt
+    dest: C:\Users\Public\Desktop\password.lnk

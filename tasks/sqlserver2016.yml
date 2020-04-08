@@ -36,19 +36,19 @@
     .\SQLServer2016.exe /ACTION=Install /CONFIGURATIONFILE=ConfigurationFile.ini /Lang=en-US /Q /IACCEPTSQLSERVERLICENSETERMS=True
   args:
     chdir: C:\temp
-  when: language == "ENU"
+  when: sqlserver_language == "ENU"
 
 - name: Install SQLServer2016 CHS
   win_shell:
     .\SQLServer2016.exe /ACTION=Install /CONFIGURATIONFILE=ConfigurationFile.ini /Lang=zh-CN /Q /IACCEPTSQLSERVERLICENSETERMS=True
   args:
     chdir: C:\temp
-  when: language == "CHS"
+  when: sqlserver_language == "CHS"
 
 ## 安装SSMS
 - name: Download SSMS
   win_get_url:
-    url: https://download.microsoft.com/download/2/9/C/29CC9731-CE3B-4EC8-89D8-E6B8EE88EAF5/SSMS-Setup-"{{language}}".exe
+    url: https://download.microsoft.com/download/2/9/C/29CC9731-CE3B-4EC8-89D8-E6B8EE88EAF5/SSMS-Setup-"{{sqlserver_language}}".exe
     dest: C:\temp
 
 - name: Install SSMS
@@ -63,24 +63,3 @@
     src: C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\Ssms.exe
     dest: C:\Users\Public\Desktop\Microsoft SQL Server Management Studio 18.lnk
     icon: C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\ssms.ico
-
-## 创建密码凭证文件
-- name: Create Credentials Directory
-  win_file:
-    path: C:\Credentials\
-    state: directory
-
-- name: Copy password.txt to Credentials
-  win_template:
-    src: password.txt.j2
-    dest: C:\Credentials\password.txt
-
-- name: Create password.lnk on desktop
-  win_shortcut:
-    src: C:\Credentials\password.txt
-    dest: C:\Users\Public\Desktop\password.lnk
-
-- name: Delete temporary directory
-  win_file:
-    path: C:\temp
-    state: absent
