@@ -2,7 +2,7 @@
 # 解压安装包
 - name: unzip package
   win_shell:
-    .\SQLEXPRADV_x64_{{sqlserver_language}}.exe /q
+    .\{{sqlserver_name}}.exe /q
   args:
     chdir: C:\temp
 
