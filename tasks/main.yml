@@ -31,10 +31,6 @@
   include: "{{sqlserver_ssms}}".yml
   when: sqlserver_ssms_download != "" and sqlserver_ssms_download != False and sqlserver_ssms_download != none
 
-- name: Install SQLBackupMaster for SQLServer{{sqlserver_version}}
-  include: sqlbackupmaster.yml
-  when: sqlserver_install_sqlbackupmaster
-
 ## Create password description
 -block:
   - name: Create Credentials Directory
