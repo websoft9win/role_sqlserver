@@ -68,7 +68,7 @@ sqlserver_meta:
     name: "SQLServer2017"
     distribution: "SP1"
     jdk: True
-    ENU:
+    CHS:
       download: "https://download.microsoft.com/download/5/E/9/5E9B18CC-8FD5-467E-B5BF-BADE39C51F73/SQLServer2017-SSEI-Expr.exe"
       ssms_download: "https://download.microsoft.com/download/2/9/C/29CC9731-CE3B-4EC8-89D8-E6B8EE88EAF5/SSMS-Setup-CHS.exe"
     ENU:
