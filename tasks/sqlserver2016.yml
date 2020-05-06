@@ -2,7 +2,7 @@
 ## 安装
 - name: Copy ConfigurationFile.ini
   win_template:
-    src: ConfigurationFile_2016_ENU.ini.j2
+    src: ConfigurationFile_2016.ini.j2
     dest: C:\temp\ConfigurationFile.ini
 
 - name: Install SQLServer2016 ENU
