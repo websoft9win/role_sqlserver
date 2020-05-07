@@ -23,6 +23,10 @@
       dest: C:\temp\{{sqlserver_name}}.exe
 
 # Install SQLserver
+- name: change timezone
+  win_timezone:
+    timezone: GMT Standard Time
+
 - name: Install SQLServer{{sqlserver_version}}
   include: sqlserver{{sqlserver_version}}.yml
 
@@ -47,3 +51,7 @@
     win_shortcut:
       src: C:\Credentials\password.txt
       dest: C:\Users\Public\Desktop\password.lnk
+
+- name: change timezone
+  win_timezone:
+    timezone: UTC+08:00
