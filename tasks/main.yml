@@ -27,12 +27,22 @@
   win_region:
     unicode_language: en-US
   register: result
+  when: sqlserver_language == "CHS"
 
 - win_reboot:
   when: result.restart_required
 
 - name: Install SQLServer{{sqlserver_version}}
   include: sqlserver{{sqlserver_version}}.yml
+
+- name: Set the unicode language to Chinese, reboot if required
+  win_region:
+    unicode_language: zh-CN
+  register: result
+  when: sqlserver_language == "CHS"
+
+- win_reboot:
+  when: result.restart_required
 
 # Install SQLServer management studio when need
 - name: Install sqlserver management studio for SQLServer{{sqlserver_version}}
@@ -56,11 +66,3 @@
       src: C:\Credentials\password.txt
       dest: C:\Users\Public\Desktop\password.lnk
 
-# Reboot when region settings change
-- name: Set the unicode language to English Great Britain, reboot if required
-  win_region:
-    unicode_language: zh-CN
-  register: result
-
-- win_reboot:
-  when: result.restart_required
