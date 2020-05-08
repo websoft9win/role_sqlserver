@@ -40,15 +40,6 @@
 - name: Install SQLServer{{sqlserver_version}}
   include: sqlserver{{sqlserver_version}}.yml
 
-- name: Set the unicode language to Chinese, reboot if required
-  win_region:
-    unicode_language: zh-CN
-  register: result
-  when: sqlserver_language == "CHS"
-
-- win_reboot:
-  when: result.restart_required
-
 ## Create password description
 - block:
   - name: Create Credentials Directory
@@ -65,4 +56,13 @@
     win_shortcut:
       src: C:\Credentials\password.txt
       dest: C:\Users\Public\Desktop\password.lnk
+
+- name: Set the unicode language to Chinese, reboot if required
+  win_region:
+    unicode_language: zh-CN
+  register: result
+  when: sqlserver_language == "CHS"
+
+- win_reboot:
+  when: result.restart_required
 
