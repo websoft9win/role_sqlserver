@@ -10,11 +10,11 @@
     .\{{sqlserver_name}}.exe /ACTION=Install /CONFIGURATIONFILE=ConfigurationFile.ini /Lang=en-US /Q /IACCEPTSQLSERVERLICENSETERMS
   args:
     chdir: C:\temp\
-  when: language == "ENU"
+  when: sqlserver_language == "ENU"
 
 - name: Install SQLServer2017 CHS
   win_shell:
     .\{{sqlserver_name}}.exe /ACTION=Install /CONFIGURATIONFILE=ConfigurationFile.ini /Lang=zh-CN /Q /IACCEPTSQLSERVERLICENSETERMS
   args:
     chdir: C:\temp\
-  when: language == "CHS"
+  when: sqlserver_language == "CHS"
