@@ -25,7 +25,7 @@
 # Install SQLserver
 - name: Set the region format to English United States
   win_region:
-    format: en-US
+    unicode_language: en-US
   register: result
 
 - win_reboot:
