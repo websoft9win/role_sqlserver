@@ -1,20 +1,29 @@
 ---
 ## 安装
-- name: Copy ConfigurationFile.ini
-  win_template:
-    src: ConfigurationFile_2016.ini.j2
-    dest: C:\temp\ConfigurationFile.ini
+- name: Download SQLServer2016 ENU
+  win_shell: 
+    .\{{sqlserver_name}}.exe /ACTION=Download /Q /LANGUAGE=en-US /MEDIATYPE=Advanced /MEDIAPATH=C:\temp
+  args:
+    chdir: C:\temp
+  when: sqlserver_language == "CHS"
 
 - name: Install SQLServer2016 ENU
   win_shell:
-    .\{{sqlserver_name}}.exe /ACTION=Install /CONFIGURATIONFILE=ConfigurationFile.ini /Lang=en-US /Q /IACCEPTSQLSERVERLICENSETERMS
+    .\SETUP.exe /Q /IACCEPTSQLSERVERLICENSETERMS /ACTION=install /FEATURES=SQL,AS,RS,IS,Tools /INSTANCENAME=MSSQLSERVER /UpdateEnabled=False
   args:
     chdir: C:\temp
   when: sqlserver_language == "ENU"
 
+- name: Download SQLServer2016 CHS
+  win_shell: 
+    .\{{sqlserver_name}}.exe /ACTION=Download /Q /LANGUAGE=en-US /MEDIATYPE=Advanced /MEDIAPATH=C:\temp
+  args:
+    chdir: C:\temp
+  when: sqlserver_language == "CHS"
+
 - name: Install SQLServer2016 CHS
   win_shell:
-    .\{{sqlserver_name}}.exe /ACTION=Install /CONFIGURATIONFILE=ConfigurationFile.ini /Lang=zh-CN /Q /IACCEPTSQLSERVERLICENSETERMS
+    .\SETUP.exe /Q /IACCEPTSQLSERVERLICENSETERMS /ACTION=install /FEATURES=SQL,AS,RS,IS,Tools /INSTANCENAME=MSSQLSERVER /UpdateEnabled=False
   args:
     chdir: C:\temp
   when: sqlserver_language == "CHS"

@@ -32,6 +32,16 @@
 - win_reboot:
   when: result.restart_required
 
+- name: Enable CredSSP -1
+  win_copy:
+    src: CredSSP.PS1
+    dest: c:\temp
+
+- name: Enable CredSSP -2
+  script: c:\temp\CredSSP.PS1
+  args:
+    executable: powershell
+
 - name: Install SQLServer{{sqlserver_version}}
   include: sqlserver{{sqlserver_version}}.yml
 
