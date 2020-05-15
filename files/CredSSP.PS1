@@ -1,1 +1,0 @@
-Enable-WSManCredSSP -Role "Server"\r

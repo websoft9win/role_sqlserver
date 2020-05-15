@@ -7,11 +7,6 @@
     chdir: C:\temp
 
 ## 安装
-- name: Copy ConfigurationFile.ini
-  win_template:
-    src: ConfigurationFile_2014.ini.j2
-    dest: C:\temp\{{sqlserver_name}}\ConfigurationFile.ini
-
 - name: Install SQLServer2014SP3
   win_shell:
     .\SETUP.EXE /Q /IACCEPTSQLSERVERLICENSETERMS /ACTION=install /FEATURES=SQL,AS,RS,IS,Tools /INSTANCENAME=MSSQLSERVER /UpdateEnabled=False
