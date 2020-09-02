@@ -5,6 +5,7 @@ sqlserver_version: "2017"
 sqlserver_language: "CHS"
 
 
+# 2008SP4 page: http://www.catalog.update.microsoft.com/search.aspx?q=kb2463332
 # 2008SP2 page: https://www.microsoft.com/en-US/download/details.aspx?id=44278
 # 2012SP4 page:: https://www.microsoft.com/en-us/download/details.aspx?id=56042
 # 2014SP3 page:: https://www.microsoft.com/en-us/download/details.aspx?id=57473
